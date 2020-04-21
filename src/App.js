@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import LoginView from "./views/LoginView";
+import Auth from "./utils/Auth";
+import RoutPage from "./views/RoutPage";
 
 function App() {
+
+    const [token, setToken] = useState(null);
+
+    function handleLogin(token) {
+        Auth.authenticateUser(token);
+        setToken(token);
+    }
+
+    function logout() {
+        Auth.deauthenticateUser();
+        setToken('');
+    }
+
+    let body = '';
+    if (Auth.isUserAuthenticated()) {
+        body = <RoutPage token onLogout={() => logout()} />;
+    } else {
+        body = <LoginView onClick={(token) => handleLogin(token)}/>;
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+          {body}
+      </div>
   );
 }
 

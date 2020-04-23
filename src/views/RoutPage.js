@@ -1,8 +1,9 @@
 import * as React from "react";
 import {useState} from "react";
-import getCurrentUserInfo from "../utils/RestClient";
-import UserInfo from "./UserInfo";
+import UserInfo from "../components/user/UserInfo";
 import './RoutPage.css';
+import UserRootPage from "../components/user/UserRootPage";
+import {getCurrentUserInfo} from "../utils/RestClient";
 
 function RoutPage(props) {
 
@@ -18,15 +19,16 @@ function RoutPage(props) {
     return (
         <div className="rout-page">
             <header className="rout-page-header">
-                {login}
+                <label>{login}</label>
                 <button onClick={event => props.onLogout()}>Выйти</button>
             </header>
 
             <section>
                 <nav className="rout-page-nav">
                     <ul className="rout-page-nav-ul">
-                        <li><a href="#current_info" onClick={event => setBody(<UserInfo currentUser={user} />)}>Пользователь</a></li>
-                        <li><a href="#home" onClick={event => setBody(<div>Дом</div>)}>Дом</a></li>
+                        <li><a href="#current_info"
+                               onClick={event => setBody(<UserInfo currentUser={user}/>)}>Пользователь</a></li>
+                        <li><a href="#users" onClick={event => setBody(<UserRootPage/>)}>Пользователи</a></li>
                     </ul>
                 </nav>
 

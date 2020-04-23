@@ -4,12 +4,10 @@ function UserInfo(props) {
 
     const currentUser = props.currentUser;
     if (currentUser == null) {
-        console.log(currentUser)
         return (
             <div>Загрузка...</div>
         )
     }
-    console.log(currentUser)
     return (
         <div className="user-info">
             <table>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {createUser, findAllRole} from "../../utils/RestClient";
 import SelectInput from "../common/SelectInput";
 import TextInput from "../common/TextInput";
@@ -19,9 +19,11 @@ function UserAddForm(props) {
 
     const [message, setMessage] = useState('');
 
-    if (roleList == null) {
-        findAllRole(response => setRoleList(response), error => setRoleList([]));
-    }
+    useEffect(() => {
+        if (roleList == null) {
+            findAllRole(response => setRoleList(response), error => setRoleList([]));
+        }
+    }, [roleList]);
 
     function handleSave() {
         const userDTO = {

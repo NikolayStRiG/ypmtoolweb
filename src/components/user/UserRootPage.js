@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import UserList from "./UserList";
 import {findAllUsers} from "../../utils/RestClient";
 import UserInfo from "./UserInfo";
@@ -15,24 +15,26 @@ function UserRootPage(props) {
         setBody(<UserInfo currentUser={user}/>);
     }
 
-    function handleResponse(response) {
-        setUserList(response);
-        setBody(<UserList data={response} onClick={(user) => handleClick(user)}/>);
-    }
+    useEffect(() => {
+        function handleResponse(response) {
+            setUserList(response);
+            setBody(<UserList data={response} onClick={(user) => handleClick(user)}/>);
+        }
 
-    function handleError(error) {
-        setBody(
-            <div>
-                <p>Ошибка получения пользователей </p>
-                <p>{error.message}</p>
-            </div>
-        );
-    }
+        function handleError(error) {
+            setBody(
+                <div>
+                    <p>Ошибка получения пользователей </p>
+                    <p>{error.message}</p>
+                </div>
+            );
+        }
 
-    if (!init) {
-        setInit(true);
-        findAllUsers(response => handleResponse(response), error => handleError(error));
-    }
+        if (!init) {
+            setInit(true);
+            findAllUsers(response => handleResponse(response), error => handleError(error));
+        }
+    }, [init]);
 
     function handle(user) {
         setUserList(userList.concat(user))

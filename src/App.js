@@ -2,34 +2,29 @@ import React, {useState} from 'react';
 import './App.css';
 import LoginView from "./views/LoginView";
 import Auth from "./utils/Auth";
-import RoutPage from "./views/RoutPage";
+import AppWrapper from "./views/AppWrapper";
 
 function App() {
 
-    const [token, setToken] = useState(null);
+    const [, forceUpdate] = useState(null);
 
     function handleLogin(token) {
         Auth.authenticateUser(token);
-        setToken(token);
+        forceUpdate(true);
     }
 
     function logout() {
         Auth.deauthenticateUser();
-        setToken('');
+        forceUpdate(false);
     }
 
-    let body = '';
-    if (Auth.isUserAuthenticated()) {
-        body = <RoutPage token onLogout={() => logout()} />;
-    } else {
-        body = <LoginView onClick={(token) => handleLogin(token)}/>;
-    }
-
-  return (
-      <div className="App">
-          {body}
-      </div>
-  );
+    return (
+        <div className="App">
+            {Auth.isUserAuthenticated()
+                ? (<AppWrapper onLogout={() => logout()} />)
+                : (<LoginView onClick={(token) => handleLogin(token)}/>)}
+        </div>
+    );
 }
 
 export default App;

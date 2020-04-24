@@ -39,7 +39,6 @@ function postFetch(url, data, handleResponse, handleError) {
 function getFetch(url, handleResponse, handleError) {
     const formValues = new Headers();
     formValues.append('X-Auth-Token', Auth.getToken());
-    formValues.append('Access-Control-Allow-Origin', '*');
 
     fetch(url, {method: 'GET', headers: formValues})
         .then((resp) => {

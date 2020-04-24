@@ -52,7 +52,6 @@ export default class LoginView extends React.Component {
                         className="form-control"
                         placeholder="Введите логин"
                         name="login"
-                        value={login}
                         onChange={event => login = event.target.value}
                         required
                     />
@@ -65,7 +64,6 @@ export default class LoginView extends React.Component {
                         className="form-control"
                         placeholder="Введите пароль"
                         name="password"
-                        value={password}
                         onChange={event => password = event.target.value}
                         required
                     />

@@ -17,6 +17,18 @@ export function createUser(user, handleResponse, handleError) {
     postFetch(urls.USERS, user, handleResponse, handleError);
 }
 
+export function findAllTasks(handleResponse, handleError) {
+    getFetch(urls.TASKS, handleResponse, handleError);
+}
+
+export function findAllTaskTypes(handleResponse, handleError) {
+    getFetch(urls.TASK_TYPES, handleResponse, handleError);
+}
+
+export function createTask(task, handleResponse, handleError) {
+    postFetch(urls.TASKS, task, handleResponse, handleError);
+}
+
 function postFetch(url, data, handleResponse, handleError) {
     const formValues = new Headers();
     formValues.append('X-Auth-Token', Auth.getToken());
